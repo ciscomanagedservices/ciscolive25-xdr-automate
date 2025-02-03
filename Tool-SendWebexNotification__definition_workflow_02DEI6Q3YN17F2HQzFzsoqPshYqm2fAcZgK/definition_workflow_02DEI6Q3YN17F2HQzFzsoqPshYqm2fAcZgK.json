@@ -110,8 +110,7 @@
       "category_02JGJ1B20PTGB3vXZAUaOWVEM7XZZj7QV9M",
       "category_025W2J2HK90LP3gVw454IoXQ0Qd1anzcY85",
       "category_02JZCZ4O6F75S21cgKMxqoHg2PGH8nLQ8Ua",
-      "category_02DEF0IUE5ZGA1PNJIWf3PYyD9AoM3jr4Si",
-      "category_02KLX2E1AXATS3QZt9us9OwZ3nUq4XoaFdq"
+      "category_02DEF0IUE5ZGA1PNJIWf3PYyD9AoM3jr4Si"
     ]
   },
   "categories": {
@@ -147,15 +146,6 @@
       "unique_name": "category_02JZCZ4O6F75S21cgKMxqoHg2PGH8nLQ8Ua",
       "name": "Tool-Webex_Notification",
       "title": "Tool-Webex_Notification",
-      "type": "basic.category",
-      "base_type": "category",
-      "category_type": "custom",
-      "object_type": "category"
-    },
-    "category_02KLX2E1AXATS3QZt9us9OwZ3nUq4XoaFdq": {
-      "unique_name": "category_02KLX2E1AXATS3QZt9us9OwZ3nUq4XoaFdq",
-      "name": "webex",
-      "title": "webex",
       "type": "basic.category",
       "base_type": "category",
       "category_type": "custom",
