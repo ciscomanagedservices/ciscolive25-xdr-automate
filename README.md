@@ -1,6 +1,6 @@
 ## BRKOPS-1557: Automating Detection & Response Outcomes using Cisco XDR & Generative AI
 
-[About Cisco Live](https://www.ciscolive.com/global.html) | [**Link to Session Presentation**](/BRKOPS-1557.pdf) | [**Link to Session Recording**]()Coming Soon!
+[About Cisco Live](https://www.ciscolive.com/global.html) | [**Link to Session Presentation**](/BRKOPS-1557.pdf) | [**Link to Session Recording**](https://www.ciscolive.com/on-demand/on-demand-library.html?search=scott%20dozier&zid=emea&search.event=1737762187215001jsy4&search=scott+dozier#/video/1740702270936001hcHJ)
 
 
 ### Session Demo Objective
