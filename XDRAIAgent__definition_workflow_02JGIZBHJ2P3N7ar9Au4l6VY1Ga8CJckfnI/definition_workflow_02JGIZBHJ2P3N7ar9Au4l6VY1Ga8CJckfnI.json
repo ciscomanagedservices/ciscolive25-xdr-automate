@@ -235,11 +235,6 @@
       "atomic": {
         "is_atomic": false
       },
-      "automation_rules": {
-        "type": [
-          "incident.rule_event"
-        ]
-      },
       "delete_workflow_instance": false,
       "description": "This workflow builds an intelligent agent which can perform a task, utilize tools, and generate an output",
       "display_name": "XDR AI Agent",
@@ -437,8 +432,7 @@
                   },
                   "skip_execution": false,
                   "target": {
-                    "execute_on_this_target_group": true,
-                    "target_group_id": "target_group_02EBOJDJPU5TC3pSXJVlVFlkbm7Onze3GGY"
+                    "no_target": true
                   },
                   "workflow_id": "definition_workflow_02DCP9NG0ZARR2GH2YD4cxUH7onr6EZ5Tyk",
                   "workflow_name": "OpenAI Chat Completion"
@@ -812,8 +806,7 @@
                                           },
                                           "skip_execution": false,
                                           "target": {
-                                            "execute_on_this_target_group": true,
-                                            "target_group_id": "target_group_01HLKTH50I3ZU5IfL3dwQos38eRFcE5gYjM"
+                                            "no_target": true
                                           },
                                           "workflow_id": "definition_workflow_02DCYSR1UQ31Z3x70x1r2ulLN1wLgLISTK4",
                                           "workflow_name": "Execute Tool Workflow and Waits For Completion"
@@ -1175,70 +1168,6 @@
       "object_type": "category"
     }
   },
-  "rules": {
-    "ruleevent_02J60G9TXJ7447NJbX57V5uokE6J2deu2ic": {
-      "name": "Command and Control DNS Activities",
-      "title": "Command and Control DNS Activities",
-      "type": "incident.rule_event",
-      "rule_type": "rule_event",
-      "base_type": "rule",
-      "object_type": "ruleevent",
-      "version": "1.0.0",
-      "properties": {
-        "conditions": {
-          "left_operand": "$output.incident.title$",
-          "operator": "mregex",
-          "right_operand": "Command and Control DNS Activities.*"
-        },
-        "description": "",
-        "disabled": true,
-        "display_name": "Command and Control DNS Activities",
-        "group_by": true,
-        "rule_type": "rule_event",
-        "stop_subsequent_rules": true,
-        "title": "Command and Control DNS Activities",
-        "workflows_config": [
-          {
-            "disabled": true,
-            "ref_id": "definition_workflow_02JGIZBHJ2P3N7ar9Au4l6VY1Ga8CJckfnI",
-            "wf_input_variables": {
-              "variable_workflow_02JGIZBI2F4J62YRrS6LJZhj1OjopF9yVp6": "\"XDR_AI_Agent_Tool\"",
-              "variable_workflow_02JGIZBI2FLKX1KD8EZiNO9O8YDDzv1t8i0": 25,
-              "variable_workflow_02JGJ7NRF9KQ30dNyFAsVcMtICwPbwAmv83": "intelligent assistant",
-              "variable_workflow_02JGJ9KK458SW2aHCtUf0Q6ObsvfV1ujyxe": "Utilize the availalbe tools to perform the task assigned and output the results to the user.",
-              "variable_workflow_02JGJABEO1P1I6SqECqV9bzOC1UG4p14g1H": "Plain Text",
-              "variable_workflow_02JGJJYDEMSJI6k90JYS7ujy8bTYiBgrD9H": ""
-            },
-            "status": {
-              "state": "stopped-polling",
-              "prev_state": "stopped-polling",
-              "error_msg": ""
-            }
-          }
-        ]
-      },
-      "disabled": true,
-      "unique_name": "ruleevent_02J60G9TXJ7447NJbX57V5uokE6J2deu2ic"
-    }
-  },
-  "target_groups": {
-    "target_group_02EBOJDJPU5TC3pSXJVlVFlkbm7Onze3GGY": {
-      "unique_name": "target_group_02EBOJDJPU5TC3pSXJVlVFlkbm7Onze3GGY",
-      "name": "HTTP Targets",
-      "title": "HTTP Targets",
-      "type": "generic.target_group",
-      "base_type": "target_group",
-      "version": "1.0.0",
-      "targets": [
-        {
-          "data_target_type": "web-service.endpoint",
-          "view_target_type": "web-service.endpoint",
-          "include_all_targets": true
-        }
-      ],
-      "object_type": "target_group"
-    }
-  },
   "variables": {
     "variable_02I5IAOKC154G5nLZT78bYWo2yXywI9NdBN": {
       "unique_name": "variable_02I5IAOKC154G5nLZT78bYWo2yXywI9NdBN",
@@ -1336,8 +1265,7 @@
               },
               "skip_execution": false,
               "target": {
-                "override_workflow_target": true,
-                "target_id": "$module_target;Cisco XDR;securex:ao:sxo;automation-apis$"
+                "no_target": true
               }
             },
             "object_type": "definition_activity"
@@ -1453,8 +1381,7 @@
                   },
                   "skip_execution": false,
                   "target": {
-                    "override_workflow_target": true,
-                    "target_id": "$module_target;Cisco XDR;securex:ao:sxo;automation-apis$"
+                    "no_target": true
                   }
                 },
                 "object_type": "definition_activity"
@@ -2231,24 +2158,7 @@
             "target_default": true
           },
           "target": {
-            "execute_on_target_group": true,
-            "target_group": {
-              "target_group_id": "target_group_02EBOJDJPU5TC3pSXJVlVFlkbm7Onze3GGY",
-              "run_on_all_targets": false,
-              "selected_target_types": [
-                "web-service.endpoint"
-              ],
-              "use_criteria": {
-                "choose_target_using_algorithm": "choose_first_with_matching_criteria",
-                "conditions": [
-                  {
-                    "operator": "eqi",
-                    "left_operand": "$targetgroup.web-service endpoint.input.display_name$",
-                    "right_operand": "$workflow.definition_workflow_02DCP9NG0ZARR2GH2YD4cxUH7onr6EZ5Tyk.input.variable_workflow_02EBOQW9VRT3V62DGLqVA5MOU0EmGWLJQaR$"
-                  }
-                ]
-              }
-            }
+            "no_target": true
           }
         },
         "object_type": "definition_workflow",
@@ -2378,20 +2288,7 @@
                               },
                               "skip_execution": false,
                               "target": {
-                                "override_workflow_target_group_criteria": true,
-                                "target_group": {
-                                  "run_on_all_targets": false,
-                                  "use_criteria": {
-                                    "choose_target_using_algorithm": "choose_first_with_matching_criteria",
-                                    "conditions": [
-                                      {
-                                        "left_operand": "$targetgroup.web-service endpoint.input.display_name$",
-                                        "operator": "eq",
-                                        "right_operand": "$workflow.definition_workflow_02DCP9NG0ZARR2GH2YD4cxUH7onr6EZ5Tyk.input.variable_workflow_02IEY9PBBBBRF05hd2yNZsJB9H0CSyedaHB$"
-                                      }
-                                    ]
-                                  }
-                                }
+                                "no_target": true
                               }
                             },
                             "object_type": "definition_activity"
@@ -2492,20 +2389,7 @@
                               },
                               "skip_execution": false,
                               "target": {
-                                "override_workflow_target_group_criteria": true,
-                                "target_group": {
-                                  "run_on_all_targets": false,
-                                  "use_criteria": {
-                                    "choose_target_using_algorithm": "choose_first_with_matching_criteria",
-                                    "conditions": [
-                                      {
-                                        "left_operand": "$targetgroup.web-service endpoint.input.display_name$",
-                                        "operator": "eq",
-                                        "right_operand": "$workflow.definition_workflow_02DCP9NG0ZARR2GH2YD4cxUH7onr6EZ5Tyk.input.variable_workflow_02IEY9PBBBBRF05hd2yNZsJB9H0CSyedaHB$"
-                                      }
-                                    ]
-                                  }
-                                }
+                                "no_target": true
                               }
                             },
                             "object_type": "definition_activity"
@@ -2547,7 +2431,7 @@
                       },
                       "skip_execution": false,
                       "target": {
-                        "use_workflow_target_group": true
+                        "no_target": true
                       }
                     },
                     "object_type": "definition_activity"
@@ -2761,20 +2645,7 @@
                                       },
                                       "skip_execution": false,
                                       "target": {
-                                        "override_workflow_target_group_criteria": true,
-                                        "target_group": {
-                                          "run_on_all_targets": false,
-                                          "use_criteria": {
-                                            "choose_target_using_algorithm": "choose_first_with_matching_criteria",
-                                            "conditions": [
-                                              {
-                                                "left_operand": "$targetgroup.web-service endpoint.input.display_name$",
-                                                "operator": "eq",
-                                                "right_operand": "$workflow.definition_workflow_02DCP9NG0ZARR2GH2YD4cxUH7onr6EZ5Tyk.input.variable_workflow_02IEY9PBBBBRF05hd2yNZsJB9H0CSyedaHB$"
-                                              }
-                                            ]
-                                          }
-                                        }
+                                        "no_target": true
                                       }
                                     },
                                     "object_type": "definition_activity"
@@ -3065,24 +2936,7 @@
             "target_default": true
           },
           "target": {
-            "execute_on_target_group": true,
-            "target_group": {
-              "target_group_id": "target_group_01HLKTH50I3ZU5IfL3dwQos38eRFcE5gYjM",
-              "run_on_all_targets": false,
-              "selected_target_types": [
-                "web-service.endpoint"
-              ],
-              "use_criteria": {
-                "choose_target_using_algorithm": "choose_first_with_matching_criteria",
-                "conditions": [
-                  {
-                    "operator": "eq",
-                    "left_operand": "$targetgroup.target_group_01HLKTH50I3ZU5IfL3dwQos38eRFcE5gYjM.common.display_name$",
-                    "right_operand": "Automation APIs"
-                  }
-                ]
-              }
-            }
+            "no_target": true
           }
         },
         "object_type": "definition_workflow",
@@ -3153,7 +3007,7 @@
                   },
                   "skip_execution": false,
                   "target": {
-                    "use_workflow_target_group": true
+                    "no_target": true
                   }
                 },
                 "object_type": "definition_activity"
@@ -3381,8 +3235,7 @@
                       },
                       "skip_execution": false,
                       "target": {
-                        "override_workflow_target": true,
-                        "target_id": "$module_target;Cisco XDR;securex:ao:sxo;automation-apis$"
+                        "no_target": true
                       }
                     },
                     "object_type": "definition_activity"
@@ -3589,12 +3442,5 @@
     "definition_workflow_02DCWQY555WLO3MITwzexVpEIJ8Zc8RfAO6",
     "definition_workflow_02DCP9NG0ZARR2GH2YD4cxUH7onr6EZ5Tyk",
     "definition_workflow_02DCYSR1UQ31Z3x70x1r2ulLN1wLgLISTK4"
-  ],
-  "module_targets": [
-    {
-      "module_type": "Cisco XDR",
-      "external_id": "securex:ao:sxo",
-      "proxy_endpoint_metadata_id": "automation-apis"
-    }
   ]
 }

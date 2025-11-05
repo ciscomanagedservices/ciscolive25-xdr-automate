@@ -203,8 +203,7 @@
               },
               "skip_execution": false,
               "target": {
-                "execute_on_this_target_group": true,
-                "target_group_id": "target_group_02EBOJDJPU5TC3pSXJVlVFlkbm7Onze3GGY"
+                "no_target": true
               },
               "workflow_id": "definition_workflow_02I266TEM4CGB2pfVwMltkVpvSeluOICz5Z",
               "workflow_name": "OpenAI Embeddings"
@@ -277,9 +276,7 @@
           },
           "skip_execution": false,
           "target": {
-            "execute_on_this_target": true,
-            "target_id": "definition_target_02I5GUFEBFQPG6DgRQYBBNZkMkfCBUqU06c",
-            "target_type": "web-service.endpoint"
+            "no_target": true
           },
           "workflow_id": "definition_workflow_02I5G6LQ5724F6L6nXXkLBgBlB2uYEife8z",
           "workflow_name": "Pinecone - Upsert Data"
@@ -299,7 +296,7 @@
       "title": "CLUS24",
       "type": "basic.category",
       "base_type": "category",
-      "description": "Workflows \u0026 Atomic Actions for Cisco Live 2024 Session BRKATO-1557: Automating Detection \u0026 Response Outcomes using Cisco XDR and Generative AI",
+      "description": "Workflows & Atomic Actions for Cisco Live 2024 Session BRKATO-1557: Automating Detection & Response Outcomes using Cisco XDR and Generative AI",
       "category_type": "custom",
       "object_type": "category"
     },
@@ -329,24 +326,6 @@
         "no_runtime_user": true,
         "protocol": "https"
       }
-    }
-  },
-  "target_groups": {
-    "target_group_02EBOJDJPU5TC3pSXJVlVFlkbm7Onze3GGY": {
-      "unique_name": "target_group_02EBOJDJPU5TC3pSXJVlVFlkbm7Onze3GGY",
-      "name": "HTTP Targets",
-      "title": "HTTP Targets",
-      "type": "generic.target_group",
-      "base_type": "target_group",
-      "version": "1.0.0",
-      "targets": [
-        {
-          "data_target_type": "web-service.endpoint",
-          "view_target_type": "web-service.endpoint",
-          "include_all_targets": true
-        }
-      ],
-      "object_type": "target_group"
     }
   },
   "variables": {
@@ -640,24 +619,7 @@
             "target_default": true
           },
           "target": {
-            "execute_on_target_group": true,
-            "target_group": {
-              "target_group_id": "target_group_02EBOJDJPU5TC3pSXJVlVFlkbm7Onze3GGY",
-              "run_on_all_targets": false,
-              "selected_target_types": [
-                "web-service.endpoint"
-              ],
-              "use_criteria": {
-                "choose_target_using_algorithm": "choose_first_with_matching_criteria",
-                "conditions": [
-                  {
-                    "operator": "eqi",
-                    "left_operand": "$targetgroup.web-service endpoint.input.display_name$",
-                    "right_operand": "$workflow.definition_workflow_02I266TEM4CGB2pfVwMltkVpvSeluOICz5Z.input.variable_workflow_02I266TFACU0T4nJVQwgUOm6NwJLX2oio1O$"
-                  }
-                ]
-              }
-            }
+            "no_target": true
           }
         },
         "object_type": "definition_workflow",
@@ -678,7 +640,7 @@
               {
                 "unique_name": "definition_activity_02I266TQNTCDQ2FGgmUHaSxKX8G2Abs7fvh",
                 "name": "Condition Branch",
-                "title": "If l_openai_retries \u003e= 0",
+                "title": "If l_openai_retries >= 0",
                 "type": "logic.condition_block",
                 "base_type": "activity",
                 "properties": {
@@ -688,7 +650,7 @@
                     "right_operand": 0
                   },
                   "continue_on_failure": false,
-                  "display_name": "If l_openai_retries \u003e= 0",
+                  "display_name": "If l_openai_retries >= 0",
                   "skip_execution": false
                 },
                 "object_type": "definition_activity",
@@ -1016,9 +978,7 @@
             "target_default": true
           },
           "target": {
-            "target_type": "web-service.endpoint",
-            "target_id": "definition_target_02I5GUFEBFQPG6DgRQYBBNZkMkfCBUqU06c",
-            "execute_on_workflow_target": true
+            "no_target": true
           }
         },
         "object_type": "definition_workflow",

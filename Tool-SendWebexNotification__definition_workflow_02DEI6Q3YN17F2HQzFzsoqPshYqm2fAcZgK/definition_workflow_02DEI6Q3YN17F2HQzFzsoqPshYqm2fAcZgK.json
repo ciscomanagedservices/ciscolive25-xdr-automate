@@ -13,7 +13,7 @@
           "scope": "input",
           "name": "i_message_text",
           "type": "datatype.string",
-          "description": "Variable to capture text content of message to post to a Webex room. Markdown format should be used.  Recommend to use the following format:\n### High-Risk Incident Notification ###\n\n**Incident ID:** \u003cincident id\u003e\n\n**Description:** \u003cdescription of incident\u003e\n\n**Potential Compromise:**\n\u003cdetails of the potential compromised endpoint\u003e\n\n**Threat Details:**\n\u003cbulleted details of threat\u003e\n\n**Current Status:**\n\u003cstatus of incident\u003e\n\n**Actions Requested:**\n\u003cbulleted list of actions\u003e",
+          "description": "Variable to capture text content of message to post to a Webex room. Markdown format should be used.  Recommend to use the following format:\n### High-Risk Incident Notification ###\n\n**Incident ID:** <incident id>\n\n**Description:** <description of incident>\n\n**Potential Compromise:**\n<details of the potential compromised endpoint>\n\n**Threat Details:**\n<bulleted details of threat>\n\n**Current Status:**\n<status of incident>\n\n**Actions Requested:**\n<bulleted list of actions>",
           "is_required": true,
           "display_on_wizard": false,
           "is_invisible": false,
@@ -77,9 +77,7 @@
           },
           "skip_execution": false,
           "target": {
-            "override_workflow_target": true,
-            "target_id": "definition_target_01QJVFH72J8QB0eRSLer8fqmxTlpgDM4cj5",
-            "target_type": "web-service.endpoint"
+            "no_target": true
           },
           "workflow_id": "definition_workflow_01PP78DJMXS415nTjonujf03ROkr6t2PNyw",
           "workflow_name": "Webex - Post Message to Room"
@@ -120,7 +118,7 @@
       "title": "CLUS24",
       "type": "basic.category",
       "base_type": "category",
-      "description": "Workflows \u0026 Atomic Actions for Cisco Live 2024 Session BRKATO-1557: Automating Detection \u0026 Response Outcomes using Cisco XDR and Generative AI",
+      "description": "Workflows & Atomic Actions for Cisco Live 2024 Session BRKATO-1557: Automating Detection & Response Outcomes using Cisco XDR and Generative AI",
       "category_type": "custom",
       "object_type": "category"
     },

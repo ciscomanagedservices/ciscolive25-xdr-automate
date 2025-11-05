@@ -141,8 +141,7 @@
           },
           "skip_execution": false,
           "target": {
-            "override_workflow_target": true,
-            "target_id": "definition_target_0262UGAGPYBHQ6FUXVOXCGO9payLod0NVbY"
+            "no_target": true
           }
         },
         "object_type": "definition_activity"
@@ -225,7 +224,7 @@
           "action_timeout": 180,
           "continue_on_failure": false,
           "display_name": "Check if output is too long, if so return error message",
-          "script": "import sys\n\ndef get_last_lines(input_text, num_lines=100):\n    \"\"\"Return the last num_lines from the given input_text.\"\"\"\n    try:\n        import json\n        parsed = json.loads(input_text)\n        lines = json.dumps(parsed, indent=4).splitlines()\n    except:\n        lines = input_text.splitlines()\n    last_lines = '\\n'.join(lines[-num_lines:])\n    warning_msg = 'ERROR: Output exceeds {char_limit} characters. Limit query API call by parameters such as limit, start_date, end_date!!'\n    warning_msg += 'Output truncated, showing the last 100 lines.\\n====================\\n\\n'\n    return warning_msg+last_lines\n\ndef check_output_length(input_text, char_limit):\n    \"\"\"Check if the output exceeds the character limit and provide a warning.\"\"\"\n    if len(input_text) \u003e char_limit:\n        return True\n    return False\n\n\nchar_limit = int(sys.argv[1])\nmsg_body = sys.argv[2]\n    \nif check_output_length(msg_body, char_limit):\n  # If the character count is over the limit, return the last 100 lines.\n  msg_body = get_last_lines(msg_body)",
+          "script": "import sys\n\ndef get_last_lines(input_text, num_lines=100):\n    \"\"\"Return the last num_lines from the given input_text.\"\"\"\n    try:\n        import json\n        parsed = json.loads(input_text)\n        lines = json.dumps(parsed, indent=4).splitlines()\n    except:\n        lines = input_text.splitlines()\n    last_lines = '\\n'.join(lines[-num_lines:])\n    warning_msg = 'ERROR: Output exceeds {char_limit} characters. Limit query API call by parameters such as limit, start_date, end_date!!'\n    warning_msg += 'Output truncated, showing the last 100 lines.\\n====================\\n\\n'\n    return warning_msg+last_lines\n\ndef check_output_length(input_text, char_limit):\n    \"\"\"Check if the output exceeds the character limit and provide a warning.\"\"\"\n    if len(input_text) > char_limit:\n        return True\n    return False\n\n\nchar_limit = int(sys.argv[1])\nmsg_body = sys.argv[2]\n    \nif check_output_length(msg_body, char_limit):\n  # If the character count is over the limit, return the last 100 lines.\n  msg_body = get_last_lines(msg_body)",
           "script_arguments": [
             "$workflow.definition_workflow_02DERU2M6K93C00tAcfL9vATtUNqezRLtQK.local.variable_workflow_02DITQNQJ9Z862SZYLcKQQLJ1Q3xOYqqrTI$",
             "$activity.definition_activity_02DF81H0JP77A1Tsl9bn3CkwtjXdutynQKt.output.response_body$"
@@ -274,7 +273,7 @@
       "title": "CLUS24",
       "type": "basic.category",
       "base_type": "category",
-      "description": "Workflows \u0026 Atomic Actions for Cisco Live 2024 Session BRKATO-1557: Automating Detection \u0026 Response Outcomes using Cisco XDR and Generative AI",
+      "description": "Workflows & Atomic Actions for Cisco Live 2024 Session BRKATO-1557: Automating Detection & Response Outcomes using Cisco XDR and Generative AI",
       "category_type": "custom",
       "object_type": "category"
     },

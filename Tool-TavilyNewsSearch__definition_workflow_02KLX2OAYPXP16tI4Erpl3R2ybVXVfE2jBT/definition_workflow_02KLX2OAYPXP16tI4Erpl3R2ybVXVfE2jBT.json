@@ -93,8 +93,7 @@
           },
           "skip_execution": false,
           "target": {
-            "override_workflow_target": true,
-            "target_id": "definition_target_02KLX8GQ86WY46PhkDzHjHlT1WIiqYD7KIu"
+            "no_target": true
           }
         },
         "object_type": "definition_activity"

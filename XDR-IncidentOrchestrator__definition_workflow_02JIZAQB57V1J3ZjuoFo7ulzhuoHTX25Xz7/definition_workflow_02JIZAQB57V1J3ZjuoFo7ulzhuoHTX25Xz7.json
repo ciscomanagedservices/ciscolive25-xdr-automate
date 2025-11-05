@@ -251,11 +251,6 @@
       "atomic": {
         "is_atomic": false
       },
-      "automation_rules": {
-        "type": [
-          "incident.rule_event"
-        ]
-      },
       "delete_workflow_instance": false,
       "description": "Top level workflow which orchestrates an AI based agent team working on a particular incident, employing tools as needed.",
       "display_name": "XDR Incident MultiAgent Orchestrator",
@@ -375,8 +370,7 @@
               },
               "skip_execution": false,
               "target": {
-                "override_workflow_target": true,
-                "target_id": "$module_target;Cisco XDR;securex:ao:iroh_api;platform-apis$"
+                "no_target": true
               }
             },
             "object_type": "definition_activity"
@@ -653,7 +647,7 @@
                             "variable_workflow_02JGIZBI2FLKX1KD8EZiNO9O8YDDzv1t8i0": 25,
                             "variable_workflow_02JGJ7NRF9KQ30dNyFAsVcMtICwPbwAmv83": "Incident Triage/Planner Agent",
                             "variable_workflow_02JGJ9KK458SW2aHCtUf0Q6ObsvfV1ujyxe": "As an autonomous IT Security Operations Engineer AI Planner agent, you are tasked with managing security incidents in accordance with the SANS incident response methodology.\nYour job is to perform the following actions on a given incident:\n\n1.  Investigator Agent Protocol:\nThe investigator agent should use all available tools methodically.\n* Tools available to investigator agent can include Cisco Secure Endpoint and Umbrella.\n* If an incident remains unresolved with the resources at hand, record this status update.\n* Endpoint Analysis: Poll and analyze  the current security health and matching events of the endpoints using tools such as Secure Endpoint.\n* Incident Note Updates: Consistently update the XDR incident notes via a tool call with verbose and detailed data during pivotal stages, including:\nCommencement of the investigation,\nDiagnosis / Assessment of Investigation Findings,\n[Before submitting a change approval request (This step requires a mandatory confirmation in the system)],\nPost-remediation efforts,\nDiscovery of significant findings.\n2. Handoff to 'end' if no further action is required.\n\nRemember to ALWAYS tell investigator agents to use tools to investigate and/or validate the incident before taking action!\n\nConstraints:\n* Any changes that are to be production systems by the security investigator agent require change approval.\n* All tools and functions employed should comply with the naming convention regex pattern: ^[a-zA-Z0-9_-]{1,64}$.\n* In case of a 404 error from an API call, verify the API path for accuracy and attempt one retry.\n\n\nYou are assigned the following incident:\n\n$workflow.definition_workflow_02JIZAQB57V1J3ZjuoFo7ulzhuoHTX25Xz7.local.variable_workflow_02JIZTYMA1AKE01Bbtx2vCUI6JDcn2Dz8gB$\n\nCustom incident handling instructions:\n\n$workflow.definition_workflow_02JIZAQB57V1J3ZjuoFo7ulzhuoHTX25Xz7.local.variable_workflow_02JIZAQBLFXB91ikUD3u3rLbRZxRVfT4jPn$",
-                            "variable_workflow_02JGJABEO1P1I6SqECqV9bzOC1UG4p14g1H": "Utilize the following JSON template as your final output format:\n\n{ \"handoff\" : true,\n\"next_agent\": \"\u003cname of agent\u003e\",\n\"steps_taken\": \"\",\n\"next_agent_task_instructions\": \"\"\n}\n\n* Respond with just the JSON above.\n* If no handoff is required, set handoff to false which ends incident handling.\n* next_agent - options are: investigator_agent, end\n* Set handoff_agent to 'end' if no further actions are required.\n* handoff_agent_task_instructions - This is the message to be sent to the next agent include as much information as possible for the next agent to continue to the task.  Do not follow incident update format here.",
+                            "variable_workflow_02JGJABEO1P1I6SqECqV9bzOC1UG4p14g1H": "Utilize the following JSON template as your final output format:\n\n{ \"handoff\" : true,\n\"next_agent\": \"<name of agent>\",\n\"steps_taken\": \"\",\n\"next_agent_task_instructions\": \"\"\n}\n\n* Respond with just the JSON above.\n* If no handoff is required, set handoff to false which ends incident handling.\n* next_agent - options are: investigator_agent, end\n* Set handoff_agent to 'end' if no further actions are required.\n* handoff_agent_task_instructions - This is the message to be sent to the next agent include as much information as possible for the next agent to continue to the task.  Do not follow incident update format here.",
                             "variable_workflow_02JGJJYDEMSJI6k90JYS7ujy8bTYiBgrD9H": "$workflow.definition_workflow_02JIZAQB57V1J3ZjuoFo7ulzhuoHTX25Xz7.local.variable_workflow_02JJ1AR8TMES10RahWGdOBiMRRsPtk8Kzcx$"
                           },
                           "runtime_user": {
@@ -760,7 +754,7 @@
                             "variable_workflow_02JGIZBI2FLKX1KD8EZiNO9O8YDDzv1t8i0": 25,
                             "variable_workflow_02JGJ7NRF9KQ30dNyFAsVcMtICwPbwAmv83": "Security Investigator Agent",
                             "variable_workflow_02JGJ9KK458SW2aHCtUf0Q6ObsvfV1ujyxe": "As an autonomous IT Security Operations Engineer AI agent, you are tasked with managing security incidents in accordance with the SANS incident response methodology. It is critical to follow the protocol below to ensure a systematic and thorough approach:\n\n1. Investigation Protocol: Use all available toaols methodically during your investigation. If an incident remains unresolved with the resources at hand, record this status update.\n3. Endpoint Analysis: Poll and analyze  the current security health and matching events of the endpoints using tools such as Secure Endpoint.\n4. Incident Note Updates: Consistently update the XDR incident notes via a tool call with verbose and detailed data during pivotal stages, including:\nDiagnosis / Assessment of Investigation Findings,\n[Before submitting a change approval request (This step requires a mandatory confirmation in the system)],\nPost-remediation efforts,\nDiscovery of significant findings.\n5. Evidence Documentation: Document all technical evidence from Cisco Security tools, such as API responses, within the incident updates to support your analysis and actions.\n6. Resolution Documentation: When you have resolved the incident, fully utilized all available tools, or determined that the issue requires escalation, please signify the completion in your message by appending the tag '{{FINAL_ANSWER}}'.\n7. Configuration Recommendations: If the resolution is unclear, avoid guessing with configurations. Instead, offer a comprehensive, actionable recommendation for the customer.\n8. Change Approvals: Before implementing any changes, such as endpoint isolation, obtain the necessary approvals. Document the outcomes of these changes once you have executed them.\n9. Remember to always send a Diagnosis incident update via tool call before initiating a change approval.\n10. Remember to always pay close attention to \"Custom incident Handling Instructions: \", these are instructions you MUST carry out when they are provided.\n\nConstraints:\n* Do not copy the incident update in your response\n* Refrain from using any tools or functions that are beyond your access permissions.\n* All tools and functions employed should comply with the naming convention regex pattern: ^[a-zA-Z0-9_-]{1,64}$.\n* In case of a 404 error from an API call, verify the API path for accuracy and attempt one retry.\n\nYou are assigned the following incident:\n\n$workflow.definition_workflow_02JIZAQB57V1J3ZjuoFo7ulzhuoHTX25Xz7.local.variable_workflow_02JIZTYMA1AKE01Bbtx2vCUI6JDcn2Dz8gB$\n\nCustom incident handling instructions:\n\n$workflow.definition_workflow_02JIZAQB57V1J3ZjuoFo7ulzhuoHTX25Xz7.local.variable_workflow_02JIZAQBLFXB91ikUD3u3rLbRZxRVfT4jPn$\n",
-                            "variable_workflow_02JGJABEO1P1I6SqECqV9bzOC1UG4p14g1H": "Utilize the following JSON template as your final output format:\n\n{ \"handoff\" : true,\n\"next_agent\": \"\u003cname of agent\u003e\",\n\"steps_taken\": \"\",\n\"next_agent_task_instructions\": \"\"\n}\n\n* Respond with just the JSON above.\n* If no handoff is required, set handoff to false which ends incident handling.\n* handoff_agent - options are: planner_agent, reviewer_agent\n* Set handoff_agent to 'reviewer_agent' if no further actions are required.\n* handoff_agent_task_instructions - This is the message to be sent to the next agent include as much information as possible for the next agent to continue to the task.  Do not follow incident update format here.",
+                            "variable_workflow_02JGJABEO1P1I6SqECqV9bzOC1UG4p14g1H": "Utilize the following JSON template as your final output format:\n\n{ \"handoff\" : true,\n\"next_agent\": \"<name of agent>\",\n\"steps_taken\": \"\",\n\"next_agent_task_instructions\": \"\"\n}\n\n* Respond with just the JSON above.\n* If no handoff is required, set handoff to false which ends incident handling.\n* handoff_agent - options are: planner_agent, reviewer_agent\n* Set handoff_agent to 'reviewer_agent' if no further actions are required.\n* handoff_agent_task_instructions - This is the message to be sent to the next agent include as much information as possible for the next agent to continue to the task.  Do not follow incident update format here.",
                             "variable_workflow_02JGJJYDEMSJI6k90JYS7ujy8bTYiBgrD9H": "Proceed with the following plan/task utilizing all available tools:\n\n$workflow.definition_workflow_02JIZAQB57V1J3ZjuoFo7ulzhuoHTX25Xz7.local.variable_workflow_02JJ1AR8TMES10RahWGdOBiMRRsPtk8Kzcx$"
                           },
                           "runtime_user": {
@@ -928,7 +922,7 @@
       "title": "CLUS24",
       "type": "basic.category",
       "base_type": "category",
-      "description": "Workflows \u0026 Atomic Actions for Cisco Live 2024 Session BRKATO-1557: Automating Detection \u0026 Response Outcomes using Cisco XDR and Generative AI",
+      "description": "Workflows & Atomic Actions for Cisco Live 2024 Session BRKATO-1557: Automating Detection & Response Outcomes using Cisco XDR and Generative AI",
       "category_type": "custom",
       "object_type": "category"
     },
@@ -940,142 +934,6 @@
       "base_type": "category",
       "category_type": "custom",
       "object_type": "category"
-    }
-  },
-  "rules": {
-    "ruleevent_02DDPA66GKPWX21W0LR3GiDsSNz8UVgvZ1L": {
-      "name": "CLUS - Send Incident to XDR AI Agent",
-      "title": "CLUS - Send Incident to XDR AI Agent",
-      "description": "This automation rule will send a newly created incident to the XDR AI Agent",
-      "type": "incident.rule_event",
-      "rule_type": "rule_event",
-      "base_type": "rule",
-      "object_type": "ruleevent",
-      "version": "1.0.0",
-      "properties": {
-        "conditions": {
-          "left_operand": "$output.incident.title$",
-          "operator": "mregex",
-          "right_operand": ".*\\[live\\]"
-        },
-        "description": "This automation rule will send a newly created incident to the XDR AI Agent",
-        "disabled": false,
-        "display_name": "CLUS - Send Incident to XDR AI Agent",
-        "group_by": true,
-        "rule_type": "rule_event",
-        "stop_subsequent_rules": true,
-        "title": "CLUS - Send Incident to XDR AI Agent",
-        "workflows_config": [
-          {
-            "disabled": false,
-            "ref_id": "definition_workflow_02JIZAQB57V1J3ZjuoFo7ulzhuoHTX25Xz7",
-            "wf_input_variables": {
-              "variable_workflow_02JIZAQBLERYY7n1kEHLtQ2Qpd2C37yTBr8": "incident-c4530825-ddc0-425c-ad9b-c9d5af14f1ba",
-              "variable_workflow_02JIZAQBLGOKL5CWQrJ6qoA91qyoXXxtqWW": true,
-              "variable_workflow_02JIZAQBLGYO360j5iZ0KMQXT6OftJGSli1": "\"XDR_AI_Agent_Tool\"",
-              "variable_workflow_02JJ01ODYPIOW6geWBzUrVb4RZHgl0ffqLA": "\"Tool-Update_XDR_Incident\""
-            },
-            "status": {
-              "state": "started-polling",
-              "prev_state": "paused-polling",
-              "error_msg": ""
-            }
-          }
-        ]
-      },
-      "disabled": false,
-      "unique_name": "ruleevent_02DDPA66GKPWX21W0LR3GiDsSNz8UVgvZ1L"
-    },
-    "ruleevent_02J60G9TXJ7447NJbX57V5uokE6J2deu2ic": {
-      "name": "Command and Control DNS Activities",
-      "title": "Command and Control DNS Activities",
-      "type": "incident.rule_event",
-      "rule_type": "rule_event",
-      "base_type": "rule",
-      "object_type": "ruleevent",
-      "version": "1.0.0",
-      "properties": {
-        "conditions": {
-          "left_operand": "$output.incident.title$",
-          "operator": "mregex",
-          "right_operand": "Command and Control DNS Activities.*"
-        },
-        "description": "",
-        "disabled": true,
-        "display_name": "Command and Control DNS Activities",
-        "group_by": true,
-        "rule_type": "rule_event",
-        "stop_subsequent_rules": true,
-        "title": "Command and Control DNS Activities",
-        "workflows_config": [
-          {
-            "disabled": true,
-            "ref_id": "definition_workflow_02JGIZBHJ2P3N7ar9Au4l6VY1Ga8CJckfnI",
-            "wf_input_variables": {
-              "variable_workflow_02JGIZBI2F4J62YRrS6LJZhj1OjopF9yVp6": "\"XDR_AI_Agent_Tool\"",
-              "variable_workflow_02JGIZBI2FLKX1KD8EZiNO9O8YDDzv1t8i0": 25,
-              "variable_workflow_02JGJ7NRF9KQ30dNyFAsVcMtICwPbwAmv83": "intelligent assistant",
-              "variable_workflow_02JGJ9KK458SW2aHCtUf0Q6ObsvfV1ujyxe": "Utilize the availalbe tools to perform the task assigned and output the results to the user.",
-              "variable_workflow_02JGJABEO1P1I6SqECqV9bzOC1UG4p14g1H": "Plain Text",
-              "variable_workflow_02JGJJYDEMSJI6k90JYS7ujy8bTYiBgrD9H": ""
-            },
-            "status": {
-              "state": "stopped-polling",
-              "prev_state": "stopped-polling",
-              "error_msg": ""
-            }
-          },
-          {
-            "disabled": false,
-            "ref_id": "definition_workflow_02JIZAQB57V1J3ZjuoFo7ulzhuoHTX25Xz7",
-            "wf_input_variables": {
-              "variable_workflow_02JIZAQBLERYY7n1kEHLtQ2Qpd2C37yTBr8": "incident-c4530825-ddc0-425c-ad9b-c9d5af14f1ba",
-              "variable_workflow_02JIZAQBLGOKL5CWQrJ6qoA91qyoXXxtqWW": true,
-              "variable_workflow_02JIZAQBLGYO360j5iZ0KMQXT6OftJGSli1": "\"XDR_AI_Agent_Tool\"",
-              "variable_workflow_02JJ01ODYPIOW6geWBzUrVb4RZHgl0ffqLA": "\"Tool-Update_XDR_Incident\""
-            },
-            "status": {
-              "state": "stopped-polling",
-              "prev_state": "started-polling",
-              "error_msg": ""
-            }
-          },
-          {
-            "disabled": true,
-            "ref_id": "definition_workflow_02JGIZBHJ2P3N7ar9Au4l6VY1Ga8CJckfnI",
-            "wf_input_variables": {
-              "variable_workflow_02JGIZBI2F4J62YRrS6LJZhj1OjopF9yVp6": "\"XDR_AI_Agent_Tool\"",
-              "variable_workflow_02JGIZBI2FLKX1KD8EZiNO9O8YDDzv1t8i0": 25,
-              "variable_workflow_02JGJ7NRF9KQ30dNyFAsVcMtICwPbwAmv83": "intelligent assistant",
-              "variable_workflow_02JGJ9KK458SW2aHCtUf0Q6ObsvfV1ujyxe": "Utilize the availalbe tools to perform the task assigned and output the results to the user.",
-              "variable_workflow_02JGJABEO1P1I6SqECqV9bzOC1UG4p14g1H": "Plain Text",
-              "variable_workflow_02JGJJYDEMSJI6k90JYS7ujy8bTYiBgrD9H": ""
-            },
-            "status": {
-              "state": "stopped-polling",
-              "prev_state": "stopped-polling",
-              "error_msg": ""
-            }
-          },
-          {
-            "disabled": false,
-            "ref_id": "definition_workflow_02JIZAQB57V1J3ZjuoFo7ulzhuoHTX25Xz7",
-            "wf_input_variables": {
-              "variable_workflow_02JIZAQBLERYY7n1kEHLtQ2Qpd2C37yTBr8": "incident-c4530825-ddc0-425c-ad9b-c9d5af14f1ba",
-              "variable_workflow_02JIZAQBLGOKL5CWQrJ6qoA91qyoXXxtqWW": true,
-              "variable_workflow_02JIZAQBLGYO360j5iZ0KMQXT6OftJGSli1": "\"XDR_AI_Agent_Tool\"",
-              "variable_workflow_02JJ01ODYPIOW6geWBzUrVb4RZHgl0ffqLA": "\"Tool-Update_XDR_Incident\""
-            },
-            "status": {
-              "state": "stopped-polling",
-              "prev_state": "started-polling",
-              "error_msg": ""
-            }
-          }
-        ]
-      },
-      "disabled": true,
-      "unique_name": "ruleevent_02J60G9TXJ7447NJbX57V5uokE6J2deu2ic"
     }
   },
   "targets": {
@@ -1094,24 +952,6 @@
         "no_runtime_user": true,
         "protocol": "https"
       }
-    }
-  },
-  "target_groups": {
-    "target_group_02EBOJDJPU5TC3pSXJVlVFlkbm7Onze3GGY": {
-      "unique_name": "target_group_02EBOJDJPU5TC3pSXJVlVFlkbm7Onze3GGY",
-      "name": "HTTP Targets",
-      "title": "HTTP Targets",
-      "type": "generic.target_group",
-      "base_type": "target_group",
-      "version": "1.0.0",
-      "targets": [
-        {
-          "data_target_type": "web-service.endpoint",
-          "view_target_type": "web-service.endpoint",
-          "include_all_targets": true
-        }
-      ],
-      "object_type": "target_group"
     }
   },
   "variables": {
@@ -1240,8 +1080,7 @@
               },
               "skip_execution": false,
               "target": {
-                "execute_on_this_target_group": true,
-                "target_group_id": "target_group_02EBOJDJPU5TC3pSXJVlVFlkbm7Onze3GGY"
+                "no_target": true
               },
               "workflow_id": "definition_workflow_02I266TEM4CGB2pfVwMltkVpvSeluOICz5Z",
               "workflow_name": "OpenAI Embeddings"
@@ -1291,9 +1130,7 @@
               },
               "skip_execution": false,
               "target": {
-                "execute_on_this_target": true,
-                "target_id": "definition_target_02I5GUFEBFQPG6DgRQYBBNZkMkfCBUqU06c",
-                "target_type": "web-service.endpoint"
+                "no_target": true
               },
               "workflow_id": "definition_workflow_02I5LB657DWXT5oyrJIvNplhUewb0EPcFe3",
               "workflow_name": "Pinecone - Query Data By Vector"
@@ -1504,24 +1341,7 @@
                 "target_default": true
               },
               "target": {
-                "execute_on_target_group": true,
-                "target_group": {
-                  "target_group_id": "target_group_02EBOJDJPU5TC3pSXJVlVFlkbm7Onze3GGY",
-                  "run_on_all_targets": false,
-                  "selected_target_types": [
-                    "web-service.endpoint"
-                  ],
-                  "use_criteria": {
-                    "choose_target_using_algorithm": "choose_first_with_matching_criteria",
-                    "conditions": [
-                      {
-                        "operator": "eqi",
-                        "left_operand": "$targetgroup.web-service endpoint.input.display_name$",
-                        "right_operand": "$workflow.definition_workflow_02I266TEM4CGB2pfVwMltkVpvSeluOICz5Z.input.variable_workflow_02I266TFACU0T4nJVQwgUOm6NwJLX2oio1O$"
-                      }
-                    ]
-                  }
-                }
+                "no_target": true
               }
             },
             "object_type": "definition_workflow",
@@ -1542,7 +1362,7 @@
                   {
                     "unique_name": "definition_activity_02I266TQNTCDQ2FGgmUHaSxKX8G2Abs7fvh",
                     "name": "Condition Branch",
-                    "title": "If l_openai_retries \u003e= 0",
+                    "title": "If l_openai_retries >= 0",
                     "type": "logic.condition_block",
                     "base_type": "activity",
                     "properties": {
@@ -1552,7 +1372,7 @@
                         "right_operand": 0
                       },
                       "continue_on_failure": false,
-                      "display_name": "If l_openai_retries \u003e= 0",
+                      "display_name": "If l_openai_retries >= 0",
                       "skip_execution": false
                     },
                     "object_type": "definition_activity",
@@ -1945,9 +1765,7 @@
                 "target_default": true
               },
               "target": {
-                "target_type": "web-service.endpoint",
-                "target_id": "definition_target_02I5GUFEBFQPG6DgRQYBBNZkMkfCBUqU06c",
-                "execute_on_workflow_target": true
+                "no_target": true
               }
             },
             "object_type": "definition_workflow",
@@ -2254,11 +2072,6 @@
           "atomic": {
             "is_atomic": false
           },
-          "automation_rules": {
-            "type": [
-              "incident.rule_event"
-            ]
-          },
           "delete_workflow_instance": false,
           "description": "This workflow builds an intelligent agent which can perform a task, utilize tools, and generate an output",
           "display_name": "XDR AI Agent",
@@ -2456,8 +2269,7 @@
                       },
                       "skip_execution": false,
                       "target": {
-                        "execute_on_this_target_group": true,
-                        "target_group_id": "target_group_02EBOJDJPU5TC3pSXJVlVFlkbm7Onze3GGY"
+                        "no_target": true
                       },
                       "workflow_id": "definition_workflow_02DCP9NG0ZARR2GH2YD4cxUH7onr6EZ5Tyk",
                       "workflow_name": "OpenAI Chat Completion"
@@ -2475,7 +2287,7 @@
                       "continue_on_failure": false,
                       "description": "This script is put into place to selectively trim out messages in the history to reduce input token size on API  requests\n\nInputs\n   - Token limit when truncations occurs\n   - Maximum tokens for processed tool output\n   - messages",
                       "display_name": "Selectively Trim Message History",
-                      "script": "\"\"\"\nMessages Selective Trimmer\n\nThis python script is developed to trim down the size of the messages array.\n\nCurrent features:\n -  Remove tool output from array IF the total size of messages is above the number of\n    tokens specified by max_processed_tool_tokens AND the size of the tool output is \n    bigger than max_processed_tool_tokens AND an assistant message follows the tool output\n    indicating the output has already been processed \n\n\nv1 - Initial pass which will trim tool long tool process tool outputs\n\"\"\"\n\nimport json\nimport re\nimport sys\n\n\ndef tokenize(text):\n    # Regular expression pattern for word tokenization\n    # This pattern will:\n    # - Correctly separate punctuation (except for periods within numbers)\n    # - Keep contractions together\n    # - Keep decimal numbers together\n    # - Keep percentages together\n    # - Separate punctuation at the end of sentences\n    token_pattern = r\"(?:\\d+\\.\\d+%?)|(?:\\w+'\\w+)|(?:\\w+)|(?:[^\\w\\s])\"\n    \n    # Find all matches of the token pattern in the text\n    tokens = re.findall(token_pattern, text)\n    return tokens\n\ndef count_tokens(text):\n    \"\"\"\n    An imperfect tokenizer that handles punctuation, percentages, decimals, contractions, and special characters. This\n    counter can be 20% lower then the true token count.\n    \n    :param text: The input string of text.\n    :return: The number of tokens in the text.\n    \"\"\"\n    tokens = tokenize(text)\n    # Return the number of tokens found\n    return len(tokens)\n\ndef truncate_to_token_limit(text, token_limit):\n    tokens = tokenize(text)\n    return ' '.join(tokens[:token_limit])\n\ndef selectively_trim_tool_messages(messages, max_processed_tool_tokens):\n    \"\"\"\n    This function goes through the messages list and will truncate a message of role=tool if there is an assistant\n    message after which would indicate the assistant has already taken action on the output.  The message will be truncated\n    down to the max_processed_tool_tokens size\n    \n    :param list: list of messages\n    :param int: maximum tokens for tool output which has already been procssed \n    :return: truncated list of messages\n    \"\"\"\n    # Iterate over the messages in reverse order to check if there is an assistant message after the tool message\n\n    # List to keep track of indices of tool messages that are candidates for trimming\n    tool_indices = []\n    \n    # Iterate over the messages to find sequences of tool messages\n    for i, message in enumerate(messages):\n        if message[\"role\"] == \"tool\" and count_tokens(message[\"content\"]) \u003e max_processed_tool_tokens:\n            # Add index of tool message to list\n            tool_indices.append(i)\n        elif message[\"role\"] == \"assistant\" and tool_indices:\n            # We have found an assistant message after a sequence of tool messages\n            # Now we can trim the content of the tool messages\n            for tool_index in tool_indices:\n                truncated_content = truncate_to_token_limit(messages[tool_index][\"content\"], max_processed_tool_tokens)\n                messages[tool_index][\"content\"] =  truncated_content + \"\\n\\n\u003c\u003c\u003c\u003c Processed tool output trimmed due to excessive length to reduce prompt tokens. \" + \\\n                                                   \"If complete output required, rerun tool, then summarize output in following message \u003e\u003e\u003e\u003e\"\n            # Clear the list of tool message indices since we've handled this sequence\n            tool_indices = []\n        elif message[\"role\"] != \"tool\":\n            # If we encounter a non-tool message that is not an assistant message,\n            # we clear the tool_indices as there is no assistant message afterwards\n            tool_indices = []\n\n    return messages\n\nmessages_token_limit = int(sys.argv[1])\nmax_processed_tool_tokens = int(sys.argv[2])\nmessages = sys.argv[3]\n\n\n# Check if messages token size is \u003e messages_token_limit, if so perform trimming\nif count_tokens(messages) \u003e messages_token_limit:\n    print('here')\n    # Load the messages from the JSON string\n    messages = json.loads(messages, strict=False)\n\n    # Selectively trim the messages based on the defined criteria\n    trimmed_messages = selectively_trim_tool_messages(messages, max_processed_tool_tokens)\n\n    # Convert the trimmed messages back to JSON\n    messages = json.dumps(trimmed_messages)",
+                      "script": "\"\"\"\nMessages Selective Trimmer\n\nThis python script is developed to trim down the size of the messages array.\n\nCurrent features:\n -  Remove tool output from array IF the total size of messages is above the number of\n    tokens specified by max_processed_tool_tokens AND the size of the tool output is \n    bigger than max_processed_tool_tokens AND an assistant message follows the tool output\n    indicating the output has already been processed \n\n\nv1 - Initial pass which will trim tool long tool process tool outputs\n\"\"\"\n\nimport json\nimport re\nimport sys\n\n\ndef tokenize(text):\n    # Regular expression pattern for word tokenization\n    # This pattern will:\n    # - Correctly separate punctuation (except for periods within numbers)\n    # - Keep contractions together\n    # - Keep decimal numbers together\n    # - Keep percentages together\n    # - Separate punctuation at the end of sentences\n    token_pattern = r\"(?:\\d+\\.\\d+%?)|(?:\\w+'\\w+)|(?:\\w+)|(?:[^\\w\\s])\"\n    \n    # Find all matches of the token pattern in the text\n    tokens = re.findall(token_pattern, text)\n    return tokens\n\ndef count_tokens(text):\n    \"\"\"\n    An imperfect tokenizer that handles punctuation, percentages, decimals, contractions, and special characters. This\n    counter can be 20% lower then the true token count.\n    \n    :param text: The input string of text.\n    :return: The number of tokens in the text.\n    \"\"\"\n    tokens = tokenize(text)\n    # Return the number of tokens found\n    return len(tokens)\n\ndef truncate_to_token_limit(text, token_limit):\n    tokens = tokenize(text)\n    return ' '.join(tokens[:token_limit])\n\ndef selectively_trim_tool_messages(messages, max_processed_tool_tokens):\n    \"\"\"\n    This function goes through the messages list and will truncate a message of role=tool if there is an assistant\n    message after which would indicate the assistant has already taken action on the output.  The message will be truncated\n    down to the max_processed_tool_tokens size\n    \n    :param list: list of messages\n    :param int: maximum tokens for tool output which has already been procssed \n    :return: truncated list of messages\n    \"\"\"\n    # Iterate over the messages in reverse order to check if there is an assistant message after the tool message\n\n    # List to keep track of indices of tool messages that are candidates for trimming\n    tool_indices = []\n    \n    # Iterate over the messages to find sequences of tool messages\n    for i, message in enumerate(messages):\n        if message[\"role\"] == \"tool\" and count_tokens(message[\"content\"]) > max_processed_tool_tokens:\n            # Add index of tool message to list\n            tool_indices.append(i)\n        elif message[\"role\"] == \"assistant\" and tool_indices:\n            # We have found an assistant message after a sequence of tool messages\n            # Now we can trim the content of the tool messages\n            for tool_index in tool_indices:\n                truncated_content = truncate_to_token_limit(messages[tool_index][\"content\"], max_processed_tool_tokens)\n                messages[tool_index][\"content\"] =  truncated_content + \"\\n\\n<<<< Processed tool output trimmed due to excessive length to reduce prompt tokens. \" + \\\n                                                   \"If complete output required, rerun tool, then summarize output in following message >>>>\"\n            # Clear the list of tool message indices since we've handled this sequence\n            tool_indices = []\n        elif message[\"role\"] != \"tool\":\n            # If we encounter a non-tool message that is not an assistant message,\n            # we clear the tool_indices as there is no assistant message afterwards\n            tool_indices = []\n\n    return messages\n\nmessages_token_limit = int(sys.argv[1])\nmax_processed_tool_tokens = int(sys.argv[2])\nmessages = sys.argv[3]\n\n\n# Check if messages token size is > messages_token_limit, if so perform trimming\nif count_tokens(messages) > messages_token_limit:\n    print('here')\n    # Load the messages from the JSON string\n    messages = json.loads(messages, strict=False)\n\n    # Selectively trim the messages based on the defined criteria\n    trimmed_messages = selectively_trim_tool_messages(messages, max_processed_tool_tokens)\n\n    # Convert the trimmed messages back to JSON\n    messages = json.dumps(trimmed_messages)",
                       "script_arguments": [
                         "4000",
                         "500",
@@ -2831,8 +2643,7 @@
                                               },
                                               "skip_execution": false,
                                               "target": {
-                                                "execute_on_this_target_group": true,
-                                                "target_group_id": "target_group_01HLKTH50I3ZU5IfL3dwQos38eRFcE5gYjM"
+                                                "no_target": true
                                               },
                                               "workflow_id": "definition_workflow_02DCYSR1UQ31Z3x70x1r2ulLN1wLgLISTK4",
                                               "workflow_name": "Execute Tool Workflow and Waits For Completion"
@@ -3248,14 +3059,13 @@
                   "description": "Given an input category, get all XDR Automate workflows tagged with that category.",
                   "display_name": "Get Workflows by Category",
                   "method": "POST",
-                  "relative_url": "/api/v1.1/workflows?is_atomic=false\u0026start=0\u0026limit=48\u0026sort_by=updated_on",
+                  "relative_url": "/api/v1.1/workflows?is_atomic=false&start=0&limit=48&sort_by=updated_on",
                   "runtime_user": {
                     "target_default": true
                   },
                   "skip_execution": false,
                   "target": {
-                    "override_workflow_target": true,
-                    "target_id": "$module_target;Cisco XDR;securex:ao:sxo;automation-apis$"
+                    "no_target": true
                   }
                 },
                 "object_type": "definition_activity"
@@ -3371,8 +3181,7 @@
                       },
                       "skip_execution": false,
                       "target": {
-                        "override_workflow_target": true,
-                        "target_id": "$module_target;Cisco XDR;securex:ao:sxo;automation-apis$"
+                        "no_target": true
                       }
                     },
                     "object_type": "definition_activity"
@@ -3380,13 +3189,13 @@
                   {
                     "unique_name": "definition_activity_02DDLW8K3S63X2Q5EVahuJBE30RUWpzRiHJ",
                     "name": "JSONPath Query",
-                    "title": "Parse WF name, ID, description \u0026 variables",
+                    "title": "Parse WF name, ID, description & variables",
                     "type": "corejava.jsonpathquery",
                     "base_type": "activity",
                     "properties": {
                       "action_timeout": 180,
                       "continue_on_failure": true,
-                      "display_name": "Parse WF name, ID, description \u0026 variables",
+                      "display_name": "Parse WF name, ID, description & variables",
                       "input_json": "$activity.definition_activity_02DDMKZF2ZJV834VpC8Uk8AaaY4ozO9sUXI.output.response_body$",
                       "jsonpath_queries": [
                         {
@@ -4149,24 +3958,7 @@
                 "target_default": true
               },
               "target": {
-                "execute_on_target_group": true,
-                "target_group": {
-                  "target_group_id": "target_group_02EBOJDJPU5TC3pSXJVlVFlkbm7Onze3GGY",
-                  "run_on_all_targets": false,
-                  "selected_target_types": [
-                    "web-service.endpoint"
-                  ],
-                  "use_criteria": {
-                    "choose_target_using_algorithm": "choose_first_with_matching_criteria",
-                    "conditions": [
-                      {
-                        "operator": "eqi",
-                        "left_operand": "$targetgroup.web-service endpoint.input.display_name$",
-                        "right_operand": "$workflow.definition_workflow_02DCP9NG0ZARR2GH2YD4cxUH7onr6EZ5Tyk.input.variable_workflow_02EBOQW9VRT3V62DGLqVA5MOU0EmGWLJQaR$"
-                      }
-                    ]
-                  }
-                }
+                "no_target": true
               }
             },
             "object_type": "definition_workflow",
@@ -4223,7 +4015,7 @@
                   {
                     "unique_name": "definition_activity_02EK4HZBI0G5U4tZbfQ4hDoBTHoPwfyQ6id",
                     "name": "Condition Branch",
-                    "title": "If l_openai_retries \u003e= 0",
+                    "title": "If l_openai_retries >= 0",
                     "type": "logic.condition_block",
                     "base_type": "activity",
                     "properties": {
@@ -4233,7 +4025,7 @@
                         "right_operand": 0
                       },
                       "continue_on_failure": false,
-                      "display_name": "If l_openai_retries \u003e= 0",
+                      "display_name": "If l_openai_retries >= 0",
                       "skip_execution": false
                     },
                     "object_type": "definition_activity",
@@ -4983,24 +4775,7 @@
                 "target_default": true
               },
               "target": {
-                "execute_on_target_group": true,
-                "target_group": {
-                  "target_group_id": "target_group_01HLKTH50I3ZU5IfL3dwQos38eRFcE5gYjM",
-                  "run_on_all_targets": false,
-                  "selected_target_types": [
-                    "web-service.endpoint"
-                  ],
-                  "use_criteria": {
-                    "choose_target_using_algorithm": "choose_first_with_matching_criteria",
-                    "conditions": [
-                      {
-                        "operator": "eq",
-                        "left_operand": "$targetgroup.target_group_01HLKTH50I3ZU5IfL3dwQos38eRFcE5gYjM.common.display_name$",
-                        "right_operand": "Automation APIs"
-                      }
-                    ]
-                  }
-                }
+                "no_target": true
               }
             },
             "object_type": "definition_workflow",
@@ -5029,7 +4804,7 @@
                       "action_timeout": 180,
                       "continue_on_failure": false,
                       "display_name": "Execute Python Script",
-                      "script": "import requests\nimport sys\nfrom typing import Any, TypedDict \nimport json\n\nclass InputVariableProperties(TypedDict):\n    name: str\n    value: Any\n\nclass InputVariable(TypedDict):\n    properties: InputVariableProperties\n\ndef dict_to_input_variables(data:dict[str, Any]) -\u003e list[InputVariable]:\n    return [\n        {\n            \"properties\":{\n                \"name\":key,\n                \"value\":json.dumps(value) if isinstance(value, (dict, list)) else value\n            }\n\n        } for (key, value) in data.items()\n    ]\n\n\nwf_id_or_unique_name = sys.argv[1].strip()\nparams = {}\nif wf_id_or_unique_name.startswith(\"definition_workflow_\"):\n  params[\"unique_name\"] = wf_id_or_unique_name\nelse:\n  params[\"workflow_id\"] = wf_id_or_unique_name\n\nworkflow_inputs = json.loads(sys.argv[2])\nsync = json.loads(\"true\")\nparams[\"sync\"] = sync\n\nprepared_request = requests.Request(\n    url=\"https://localhost/api/v1/workflows/start\",\n    params=params,\n    json={\n        \"input_variables\":dict_to_input_variables(workflow_inputs)\n    },\n).prepare()\n\npath = prepared_request.path_url\nbody = prepared_request.body.decode()",
+                      "script": "import requests\nimport sys\nfrom typing import Any, TypedDict \nimport json\n\nclass InputVariableProperties(TypedDict):\n    name: str\n    value: Any\n\nclass InputVariable(TypedDict):\n    properties: InputVariableProperties\n\ndef dict_to_input_variables(data:dict[str, Any]) -> list[InputVariable]:\n    return [\n        {\n            \"properties\":{\n                \"name\":key,\n                \"value\":json.dumps(value) if isinstance(value, (dict, list)) else value\n            }\n\n        } for (key, value) in data.items()\n    ]\n\n\nwf_id_or_unique_name = sys.argv[1].strip()\nparams = {}\nif wf_id_or_unique_name.startswith(\"definition_workflow_\"):\n  params[\"unique_name\"] = wf_id_or_unique_name\nelse:\n  params[\"workflow_id\"] = wf_id_or_unique_name\n\nworkflow_inputs = json.loads(sys.argv[2])\nsync = json.loads(\"true\")\nparams[\"sync\"] = sync\n\nprepared_request = requests.Request(\n    url=\"https://localhost/api/v1/workflows/start\",\n    params=params,\n    json={\n        \"input_variables\":dict_to_input_variables(workflow_inputs)\n    },\n).prepare()\n\npath = prepared_request.path_url\nbody = prepared_request.body.decode()",
                       "script_arguments": [
                         "$workflow.definition_workflow_02DCYSR1UQ31Z3x70x1r2ulLN1wLgLISTK4.input.variable_workflow_02DDLT1TG2MM8658HoJjmqvbxyKyHAZiKlt$",
                         "$workflow.definition_workflow_02DCYSR1UQ31Z3x70x1r2ulLN1wLgLISTK4.input.variable_workflow_02DDLTMMGC9GV6vAV5A2jLq5jWLJUQ57wh1$"
@@ -5299,8 +5074,7 @@
                           },
                           "skip_execution": false,
                           "target": {
-                            "override_workflow_target": true,
-                            "target_id": "$module_target;Cisco XDR;securex:ao:sxo;automation-apis$"
+                            "no_target": true
                           }
                         },
                         "object_type": "definition_activity"
@@ -5513,17 +5287,5 @@
   "dependent_workflows": [
     "definition_workflow_02I5LQEFBMEB422JHRKY7g4FJXQLOJiYPJy",
     "definition_workflow_02JGIZBHJ2P3N7ar9Au4l6VY1Ga8CJckfnI"
-  ],
-  "module_targets": [
-    {
-      "module_type": "Cisco XDR",
-      "external_id": "securex:ao:sxo",
-      "proxy_endpoint_metadata_id": "automation-apis"
-    },
-    {
-      "module_type": "Cisco XDR",
-      "external_id": "securex:ao:iroh_api",
-      "proxy_endpoint_metadata_id": "platform-apis"
-    }
   ]
 }
