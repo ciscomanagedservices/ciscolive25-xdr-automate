@@ -1,0 +1,7 @@
+tmp/
+.env
+meraki_tokens.json
+browser_auth_header.txt
+browser_cookies.txt
+browser_storage.txt
+curl_command.txt
